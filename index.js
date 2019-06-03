@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const rimraf = require('rimraf')
 
 // Constants
 const sourceDir = './src'
@@ -10,7 +11,7 @@ const outputDir = './dist'
 let sourceContent = fs.readdirSync(sourceDir)
 
 // Get the components content
-let componentsNames = fs.readdirSync(componentsDir)
+const componentsNames = fs.readdirSync(componentsDir)
 let components = {}
 componentsNames.forEach(componentName => {
   const nameWithoutExtension = componentName.split('.')[0]
@@ -18,7 +19,7 @@ componentsNames.forEach(componentName => {
 })
 
 // Insert the components into the pages
-let pagesNames = sourceContent.filter(file => path.extname(file).toLocaleLowerCase() === pagesExtension)
+const pagesNames = sourceContent.filter(file => path.extname(file).toLocaleLowerCase() === pagesExtension)
 let pages = {}
 pagesNames.forEach(pageName => {
   pages[pageName] = fs.readFileSync(`${sourceDir}/${pageName}`, 'utf8')
@@ -30,5 +31,11 @@ Object.keys(pages).forEach(pageName => {
   })
 })
 
+// Output the replaced files into the output directory
+rimraf.sync(outputDir)
+fs.mkdirSync(outputDir)
+pagesNames.forEach(pageName => {
+  fs.writeFileSync(`${outputDir}/${pageName}`, pages[pageName])
+})
 
 console.log(pages)
