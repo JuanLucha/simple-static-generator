@@ -6,11 +6,16 @@
   "author": "Juan Lucha (juanlucha@gmail.com)",
   "license": "MIT",
   "dependencies": {
+    "live-server": "^1.2.1",
     "ncp": "^2.0.0",
+    "nodemon": "^1.19.1",
+    "parallelshell": "^3.0.2",
     "rimraf": "^2.6.3",
     "standard": "^12.0.1"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "parallelshell \"yarn serve\" \"yarn watch\"",
+    "serve": "live-server dist",
+    "watch": "nodemon --watch index.js --watch src -e js,html,css"
   }
 }
