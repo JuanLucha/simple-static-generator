@@ -1,12 +1,16 @@
 const fs = require('fs')
 const path = require('path')
 const rimraf = require('rimraf')
+const ncp = require('ncp').ncp
 
 // Constants
 const sourceDir = './src'
 const componentsDir = `${sourceDir}/components`
 const pagesExtension = '.html'
 const outputDir = './dist'
+const assetsDirname = 'assets'
+const assetsDir = `${sourceDir}/${assetsDirname}`
+const outputAssetsDir = `${outputDir}/${assetsDirname}`
 
 let sourceContent = fs.readdirSync(sourceDir)
 
@@ -38,4 +42,10 @@ pagesNames.forEach(pageName => {
   fs.writeFileSync(`${outputDir}/${pageName}`, pages[pageName])
 })
 
-console.log(pages)
+// Copy all the assets to output directory
+ncp(assetsDir, `${outputDir}/${assetsDirname}`, error => {
+  if (error) {
+    return console.error(error)
+  }
+  console.log('Static site generated!')
+})
