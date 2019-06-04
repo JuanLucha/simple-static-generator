@@ -5,10 +5,10 @@ body {
 .footer {
   bottom: 0;
   left: 0;
-  position: absolute;
+  position: fixed;
   background-color: lightgreen;
   padding: 5px;
-  width: 100%;
+  width: 100vw;
 }
 
 .image img {
@@ -19,7 +19,7 @@ body {
   background-color: lightgreen;
   left: 0;
   padding: 5px;
-  position: absolute;
+  position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
 }

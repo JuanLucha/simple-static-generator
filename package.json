@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "parallelshell \"yarn serve\" \"yarn watch\"",
-    "serve": "live-server dist",
+    "serve": "live-server dist --wait=100",
     "watch": "nodemon --watch index.js --watch src -e js,html,css"
   }
 }
